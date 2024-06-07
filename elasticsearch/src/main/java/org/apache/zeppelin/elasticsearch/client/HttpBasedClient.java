@@ -168,7 +168,7 @@ public class HttpBasedClient implements ElasticsearchClient {
               .succeeded(true)
               .hit(new HitWrapper(
                   getFieldAsString(body, "_index"),
-                  getFieldAsString(body, "_type"),
+                  "unsupported",
                   getFieldAsString(body, "_id"),
                   getFieldAsString(body, "_source")));
         } else {
@@ -178,7 +178,7 @@ public class HttpBasedClient implements ElasticsearchClient {
               .succeeded(true)
               .hit(new HitWrapper(
                   hit.getString("_index"),
-                  hit.getString("_type"),
+                  "unsupported",
                   hit.getString("_id"),
                   hit.opt("_source").toString()));
         }
@@ -214,7 +214,7 @@ public class HttpBasedClient implements ElasticsearchClient {
             .succeeded(true)
             .hit(new HitWrapper(
                 getFieldAsString(body, "_index"),
-                getFieldAsString(body, "_type"),
+                "unsupported",
                 getFieldAsString(body, "_id"),
                 null));
       } else {
@@ -252,7 +252,7 @@ public class HttpBasedClient implements ElasticsearchClient {
             .succeeded(true)
             .hit(new HitWrapper(
                 getFieldAsString(result, "_index"),
-                getFieldAsString(result, "_type"),
+                "unsupported",
                 getFieldAsString(result, "_id"),
                 null));
       } else {
@@ -332,7 +332,7 @@ public class HttpBasedClient implements ElasticsearchClient {
                 hit.opt("_source") != null ? hit.opt("_source") : hit.opt("fields");
             response.addHit(new HitWrapper(
                 hit.getString("_index"),
-                hit.getString("_type"),
+                "unsupported",
                 hit.getString("_id"),
                 data.toString()));
           }
