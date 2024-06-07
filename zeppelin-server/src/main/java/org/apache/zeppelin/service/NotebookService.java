@@ -424,7 +424,7 @@ public class NotebookService {
     if (note == null) {
       return false;
     }
-    LOGGER.info("Start to run paragraph: {} of note: {}", paragraphId, note.getId());
+    LOGGER.info("Start to run paragraph: {} of note: {} - with blocking", paragraphId, note.getId(), blocking);
     if (!checkPermission(note.getId(), Permission.RUNNER, Message.OP.RUN_PARAGRAPH, context, callback)) {
       return false;
     }

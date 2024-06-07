@@ -40,10 +40,10 @@ public class RemoteScheduler extends AbstractScheduler {
   private final ExecutorService executor;
 
   public RemoteScheduler(String name,
+                         ExecutorService executor,
                          RemoteInterpreter remoteInterpreter) {
     super(name);
-    this.executor =
-        Executors.newSingleThreadExecutor(new SchedulerThreadFactory("FIFO-" + name + "-"));
+    this.executor = executor;
     this.remoteInterpreter = remoteInterpreter;
   }
 
@@ -53,6 +53,9 @@ public class RemoteScheduler extends AbstractScheduler {
     executor.execute(jobRunner);
     String executionMode =
             remoteInterpreter.getProperty(".execution.mode", "paragraph");
+            
+    LOGGER.info("runJobInScheduler - executionMode:" + executionMode + " - " + job);        
+            
     if (executionMode.equals("paragraph")) {
       // wait until it is submitted to the remote
       while (!jobRunner.isJobSubmittedInRemote() && !Thread.currentThread().isInterrupted()) {
@@ -81,6 +84,8 @@ public class RemoteScheduler extends AbstractScheduler {
       throw new RuntimeException("Invalid job execution.mode: " + executionMode +
               ", only 'note' and 'paragraph' are valid");
     }
+    
+    LOGGER.info("runJobInScheduler - DONE.");
   }
 
   /**
